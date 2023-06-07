@@ -116,7 +116,7 @@ namespace CRUD_Operation.Migrations
                             EmployeeAttendanceId = 3,
                             AttendanceDate = new DateTime(2023, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmployeeId = 502031,
-                            IsAbsent = 1,
+                            IsAbsent = 0,
                             IsOffday = 0,
                             IsPresent = 1
                         });

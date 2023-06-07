@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CRUD_Operation.Migrations
 {
-    public partial class CodeFIrstMigration01 : Migration
+    public partial class CodeFirstMigration01 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -68,7 +68,7 @@ namespace CRUD_Operation.Migrations
             migrationBuilder.InsertData(
                 table: "EmployeeAttendance",
                 columns: new[] { "EmployeeAttendanceId", "AttendanceDate", "EmployeeId", "IsAbsent", "IsOffday", "IsPresent" },
-                values: new object[] { 3, new DateTime(2023, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 502031, 1, 0, 1 });
+                values: new object[] { 3, new DateTime(2023, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 502031, 0, 0, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeAttendance_EmployeeId",

@@ -20,25 +20,26 @@ namespace CRUD_Operation.Controllers
         [HttpPut("api/employees/{id}/employeecode")]
         public async Task<IActionResult> API01(int id, [FromBody] string employeeCode)
         {
-            // Check if the employee code already exists
-            if (await _db.Employee.AnyAsync(e => e.EmployeeCode == employeeCode))
+            
+            if (await _db.Employee.AnyAsync(e => e.EmployeeCode == employeeCode && e.EmployeeId != id))
             {
                 return BadRequest("Employee code already exists.");
             }
 
-            // Find the employee by ID
+            
             var employee = await _db.Employee.FindAsync(id);
             if (employee == null)
             {
                 return NotFound();
             }
 
-            // Update the employee code
+            
             employee.EmployeeCode = employeeCode;
-            await _db.SaveChangesAsync(); // Use the DbContext to save changes
+            await _db.SaveChangesAsync();
 
             return NoContent();
         }
+
 
 
 
@@ -55,7 +56,7 @@ namespace CRUD_Operation.Controllers
         {
             var absentEmployees = await (from e in _db.Employee
                                          join ea in _db.EmployeeAttendance on e.EmployeeId equals ea.EmployeeId
-                                         where ea.IsAbsent > 0 
+                                         where ea.IsAbsent == 1
                                          select e).ToListAsync();
 
             return Ok(absentEmployees);
@@ -71,15 +72,14 @@ namespace CRUD_Operation.Controllers
                 {
                     EmployeeName = g.Key.EmployeeName,
                     MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key.Month),
-                    TotalPresent = g.Sum(a => a.IsPresent),
-                    TotalAbsent = g.Sum(a => a.IsAbsent),
-                    TotalOffday = g.Sum(a => a.IsOffday)
+                    TotalPresent = g.Count(a => a.IsPresent > 0),
+                    TotalAbsent = g.Count(a => a.IsAbsent > 0),
+                    TotalOffday = g.Count(a => a.IsOffday > 0)
                 })
                 .ToListAsync();
 
             return Ok(attendanceReport);
         }
-
 
 
 

@@ -4,8 +4,8 @@ namespace CRUD_Operation.Model
 {
     public class EmployeeAttendance
     {
-        public int EmployeeAttendanceId { get; set; } // Unique primary key for EmployeeAttendance
-        public int EmployeeId { get; set; } // Foreign key referencing Employee
+        public int EmployeeAttendanceId { get; set; } 
+        public int EmployeeId { get; set; } 
         public DateTime AttendanceDate { get; set; }
         public int IsPresent { get; set; }
         public int IsAbsent { get; set; }

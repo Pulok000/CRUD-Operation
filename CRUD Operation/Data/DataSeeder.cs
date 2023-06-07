@@ -17,7 +17,7 @@ namespace CRUD_Operation.Data
             modelBuilder.Entity<EmployeeAttendance>().HasData(
                 new EmployeeAttendance { EmployeeAttendanceId = 1, EmployeeId = 502030, AttendanceDate = new DateTime(2023, 6, 24), IsPresent = 1, IsAbsent = 0, IsOffday = 0 },
                 new EmployeeAttendance { EmployeeAttendanceId = 2, EmployeeId = 502030, AttendanceDate = new DateTime(2023, 6, 25), IsPresent = 0, IsAbsent = 1, IsOffday = 0 },
-                new EmployeeAttendance { EmployeeAttendanceId = 3, EmployeeId = 502031, AttendanceDate = new DateTime(2023, 6, 25), IsPresent = 1, IsAbsent = 1, IsOffday = 0 }
+                new EmployeeAttendance { EmployeeAttendanceId = 3, EmployeeId = 502031, AttendanceDate = new DateTime(2023, 6, 25), IsPresent = 1, IsAbsent = 0, IsOffday = 0 }
             );
         }
 

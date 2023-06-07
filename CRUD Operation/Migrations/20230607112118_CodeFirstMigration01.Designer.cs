@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRUD_Operation.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230606193939_CodeFIrstMigration01")]
-    partial class CodeFIrstMigration01
+    [Migration("20230607112118_CodeFirstMigration01")]
+    partial class CodeFirstMigration01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -118,7 +118,7 @@ namespace CRUD_Operation.Migrations
                             EmployeeAttendanceId = 3,
                             AttendanceDate = new DateTime(2023, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmployeeId = 502031,
-                            IsAbsent = 1,
+                            IsAbsent = 0,
                             IsOffday = 0,
                             IsPresent = 1
                         });
