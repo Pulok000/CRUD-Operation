@@ -78,24 +78,25 @@ namespace CRUD_Operation.Controllers
             return Ok(absentEmployees);
         }
 
-        [HttpGet("api/employees/monthlyattendance")]
-        public async Task<IActionResult> API04()
+[HttpGet("api/employees/monthlyattendance")]
+public async Task<IActionResult> API04()
+{
+    var attendanceReport = await _db.EmployeeAttendance
+        .Include(a => a.employee)
+        .GroupBy(a => new { a.employee.EmployeeName, a.AttendanceDate.Month })
+        .Select(g => new
         {
-            var attendanceReport = await _db.EmployeeAttendance
-                .Include(a => a.employee)
-                .GroupBy(a => new { a.employee.EmployeeName, a.AttendanceDate.Month })
-                .Select(g => new
-                {
-                    EmployeeName = g.Key.EmployeeName,
-                    MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key.Month),
-                    TotalPresent = g.Count(a => a.IsPresent > 0),
-                    TotalAbsent = g.Count(a => a.IsAbsent > 0),
-                    TotalOffday = g.Count(a => a.IsOffday > 0)
-                })
-                .ToListAsync();
+            EmployeeName = g.Key.EmployeeName,
+            MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key.Month),
+            TotalPresent = g.Count(a => a.IsPresent == 1),
+            TotalAbsent = g.Count(a => a.IsAbsent == 1),
+            TotalOffday = g.Count(a => a.IsOffday == 1)
+        })
+        .ToListAsync();
 
-            return Ok(attendanceReport);
-        }
+    return Ok(attendanceReport);
+}
+
 
 
 
