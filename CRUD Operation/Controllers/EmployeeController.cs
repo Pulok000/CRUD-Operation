@@ -46,10 +46,20 @@ namespace CRUD_Operation.Controllers
         [HttpGet("api/employees/sortedbysalary")]
         public async Task<IActionResult> API02()
         {
-            var employees = await _db.Employee.OrderByDescending(e => e.EmployeeSalary).ToListAsync();
+            var employees = await _db.Employee
+                .OrderByDescending(e => e.EmployeeSalary)
+                .Select(e => new
+                {
+                    e.EmployeeId,
+                    e.EmployeeName,
+                    e.EmployeeCode,
+                    e.EmployeeSalary
+                })
+                .ToListAsync();
 
             return Ok(employees);
         }
+
 
         [HttpGet("api/employees/absent")]
         public async Task<IActionResult> API03()
@@ -57,7 +67,13 @@ namespace CRUD_Operation.Controllers
             var absentEmployees = await (from e in _db.Employee
                                          join ea in _db.EmployeeAttendance on e.EmployeeId equals ea.EmployeeId
                                          where ea.IsAbsent == 1
-                                         select e).ToListAsync();
+                                         select new
+                                         {
+                                             e.EmployeeId,
+                                             e.EmployeeName,
+                                             e.EmployeeCode,
+                                             e.EmployeeSalary
+                                         }).ToListAsync();
 
             return Ok(absentEmployees);
         }
